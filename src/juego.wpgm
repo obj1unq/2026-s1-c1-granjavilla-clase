@@ -1,0 +1,21 @@
+import wollok.game.*
+import hector.*
+import cultivos.*
+
+program farmville {
+	//  CONFIG	
+	game.title("La granja de Héctor")
+	game.height(10)
+	game.width(10)
+	game.ground("ground.png")
+
+	//  VISUALES
+ 	game.addVisualCharacter(hector)
+ 	
+	// TECLAS
+	keyboard.m().onPressDo({ hector.plantar(maiz) })
+	// TODO: Agregar las que faltan
+ 	
+ 	//  COMIENZA
+	game.start()
+}

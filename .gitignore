@@ -1,0 +1,6 @@
+/bin/
+*.html
+
+*.log
+
+.DS_Store

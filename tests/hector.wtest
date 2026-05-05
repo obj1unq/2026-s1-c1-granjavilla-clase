@@ -1,0 +1,17 @@
+import src.cultivos.*
+import src.hector.*
+
+test "puede plantar un cultivo" {
+    hector.plantar(maiz)
+    assert.that(game.hasVisual(maiz))
+    assert.equals(hector.position(), maiz.position())
+}
+
+test "puede plantar dos cultivos" {
+    hector.plantar(maiz)
+    hector.position(hector.position().right(1))
+    hector.plantar(maiz) // Boom!
+    
+    assert.that(game.hasVisual(maiz))
+    assert.that(game.hasVisual(maiz)) // ???
+}
