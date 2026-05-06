@@ -13,7 +13,9 @@ program farmville {
  	game.addVisualCharacter(hector)
  	
 	// TECLAS
-	keyboard.m().onPressDo({ hector.plantar(maiz) })
+	keyboard.m().onPressDo({ hector.plantaMaiz() })
+	keyboard.r().onPressDo({ hector.rega() })
+	keyboard.c().onPressDo({ hector.cosecha() })
 	// TODO: Agregar las que faltan
  	
  	//  COMIENZA

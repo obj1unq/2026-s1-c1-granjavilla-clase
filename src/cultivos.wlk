@@ -1,8 +1,14 @@
 import wollok.game.*
 
-object maiz {
-	var property position = game.origin()
+class Maiz {
+	const property position
+	var property image = "corn_baby.png"
 	
-	// TODO: hacer que devuelva la imagen que corresponde según se riegue
-	method image() = "corn_baby.png"
+	method regate() {
+		image = "corn_adult.png"
+	}
+
+	method cosechate() {
+		game.removeVisual(self)
+	}
 }
