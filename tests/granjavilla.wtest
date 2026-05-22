@@ -1,0 +1,52 @@
+import src.cultivos.*
+import src.personaje.*
+
+test "puede plantar un cultivo" {
+    personaje.plantaMaiz()
+    const maiz = game.colliders(personaje).uniqueElement()
+    assert.that(game.hasVisual(maiz))
+    assert.equals(personaje.position(), maiz.position())
+}
+
+test "puede plantar dos cultivos" {    
+    personaje.plantaMaiz()
+    const maiz1 = game.colliders(personaje).uniqueElement()
+
+    personaje.position(personaje.position().right(1))
+
+    personaje.plantaMaiz()
+    const maiz2 = game.colliders(personaje).uniqueElement()
+    
+    assert.that(game.hasVisual(maiz1))
+    assert.that(game.hasVisual(maiz2))
+}
+
+test "puede regar un cultivo" {
+    personaje.plantaMaiz()
+    const maiz = game.colliders(personaje).uniqueElement()
+
+    personaje.rega()
+    assert.equals("corn_adult.png", maiz.image())
+}
+
+test "puede regar un cultivo muchas veces" {
+    personaje.plantaMaiz()
+    const maiz = game.colliders(personaje).uniqueElement()
+
+    personaje.rega()
+    personaje.rega()
+    personaje.rega()
+    assert.equals("corn_adult.png", maiz.image())
+}
+
+test "no puede regar en un lugar vacío" {
+    assert.throwsException({ personaje.rega() })
+}
+
+test "puede cosechar un cultivo" {
+    personaje.plantaMaiz()
+    const maiz = game.colliders(personaje).uniqueElement()
+
+    personaje.cosecha()
+    assert.notThat(game.hasVisual(maiz))   
+}

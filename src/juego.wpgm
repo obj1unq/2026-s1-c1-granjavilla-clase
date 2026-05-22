@@ -1,5 +1,6 @@
+import src.plantador.*
 import wollok.game.*
-import hector.*
+import personaje.*
 import cultivos.*
 
 program farmville {
@@ -8,16 +9,67 @@ program farmville {
 	game.height(10)
 	game.width(10)
 	game.ground("ground.png")
-
-	//  VISUALES
- 	game.addVisualCharacter(hector)
- 	
-	// TECLAS
-	keyboard.m().onPressDo({ hector.plantaMaiz() })
-	keyboard.r().onPressDo({ hector.rega() })
-	keyboard.c().onPressDo({ hector.cosecha() })
-	// TODO: Agregar las que faltan
- 	
- 	//  COMIENZA
+	
+	menu.seleccionDePersonaje()
+	
+	//  COMIENZA
 	game.start()
+}
+
+object menu {
+	method seleccionDePersonaje() {
+		game.addVisual(flecha)
+		game.addVisual(wachin)
+		game.addVisual(wachina)
+
+		keyboard.right().onPressDo({ flecha.seleccionado(wachin) })
+		keyboard.left().onPressDo({ flecha.seleccionado(wachina) })
+		keyboard.space().onPressDo({ 
+			flecha.seleccionarPersonaje()
+			self.iniciarNivel()
+		 })
+	}
+
+	method iniciarNivel() {
+		game.clear()
+		nivel.iniciar()
+	}
+}
+
+object flecha {
+	var property seleccionado = wachina
+	const property image = "spot.png"
+	method position() = seleccionado.position().up(1)
+
+	method seleccionarPersonaje() {
+		personaje.image(seleccionado.image())
+	}
+}
+
+// TODO: Estos dos wko podrían ser instancias de una misma clase 
+// (no llegamos a hacer el refactor en clase)
+object wachin {
+	const property image = "mplayer.png"
+	const property position = game.center().right(2)
+}
+
+object wachina {
+	const property image = "fplayer.png"
+	const property position = game.center().left(2)
+}
+
+object nivel {
+	method iniciar() {
+		//  VISUALES
+		game.addVisualCharacter(personaje)
+		
+		// TECLAS
+		keyboard.m().onPressDo({ personaje.plantaMaiz() })
+		keyboard.r().onPressDo({ personaje.rega() })
+		keyboard.c().onPressDo({ personaje.cosecha() })
+
+		// TODO: Agregar las que faltan
+		
+		plantador.empezaAPlantarMaiz()
+	}
 }

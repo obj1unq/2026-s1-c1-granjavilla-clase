@@ -1,9 +1,9 @@
 import wollok.game.*
 import src.cultivos.*
 
-object hector {
+object personaje {
 	var property position = game.center()
-	const property image = "player.png"
+	var property image = "mplayer.png"
 
 	method plantaMaiz() {
 		game.addVisual(new Maiz(position = self.position()))
